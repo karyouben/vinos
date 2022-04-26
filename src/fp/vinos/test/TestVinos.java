@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import fp.vinos.FactoriaVinos;
-import fp.vinos.Vino;
-import fp.vinos.Vinos;
+import fp.vino.FactoriaVinos;
+import fp.vino.Vino;
+import fp.vino.Vinos;
 
 public class TestVinos {
 
