@@ -3,7 +3,7 @@ package fp.vino;
 import fp.utiles.Checkers;
 
 public record Vino(String pais, String region, Integer puntos, Double precio,
-		String uva, Double calidadprecio) {
+		String uva) {
 	
 	//Chekeador de errores
 	public Vino{
