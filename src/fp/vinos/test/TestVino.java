@@ -5,7 +5,7 @@ package fp.vinos.test;
  * @since 2019-02-26
  */
 
-import fp.vino.Vino;
+import fp.vinos.Vino;
 
 public class TestVino {
 		

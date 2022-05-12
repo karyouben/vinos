@@ -1,7 +1,9 @@
 package fp.vino;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -90,5 +92,60 @@ public class Vinos {
 		}
 	}return esCierto;
  }
+	public Integer calcularNumeroVinosDePais(String pais) {
+		Long res=vinos.stream()
+				.filter(vino->vino.pais().equals(pais))
+				.count();
+		return res.intValue();
+	}
+	
+	public Set<Vino> obtenerVinosBaratos(Double precio) {
+		return vinos.stream()
+				.filter(vino-> vino.precio()<precio)
+				.collect(Collectors.toSet());
+		
+	}
+	
+	public Boolean existeVinoDeUvaEnRegion(String region, String uva) {
+		return vinos.stream()
+				.filter(vino->vino.region().equals(region))
+				.anyMatch(vino->vino.uva().equals(uva));
+				
+			}
+	public Set<String> calcularUvasDeRegion(String region){
+		return vinos.stream()
+				.filter(vino->vino.region().equals(region))
+				.map(Vino::uva)
+				.collect(Collectors.toSet());
+		//.collect(Collectors.mapping(Vino::uva,Collectors.toSet()));
+	}
+		
+	public Vino  obtenerVinoMejorPuntuado(String region) {
+		return vinos.stream()
+				.max(Comparator.comparing(Vino::puntos))
+				.get();
+		
+	  }
+	
+	public Vino obtenerVinoMejorPuntuadoDePais(String region) {
+		return vinos.stream()
+				.filter(vino->vino.region().equals(region))
+				.max(Comparator.comparing(Vino::puntos))
+				.get();	
+	}
+	
+	public List<Vino> obtenerNVinosRegionOrdenadosPrecio(String region,Integer n) {
+		return vinos.stream()
+				.filter(vino->vino.region().equals(region))
+				.sorted(Comparator.comparing(Vino::precio).reversed())
+				.limit(n)
+				.collect(Collectors.toList());
+			
+	}
+	
+		
+	
+		
+	
 
 }
