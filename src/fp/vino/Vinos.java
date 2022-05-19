@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -100,9 +102,9 @@ public class Vinos {
 	}
 	
 	public Set<Vino> obtenerVinosBaratos(Double precio) {
-		return vinos.stream()
+		return vinos.stream() //tranformar de conjunto a stream set<vino>->Stream<vino>
 				.filter(vino-> vino.precio()<precio)
-				.collect(Collectors.toSet());
+				.collect(Collectors.toSet());//Stream<vino>->set<vino>
 		
 	}
 	
@@ -110,19 +112,20 @@ public class Vinos {
 		return vinos.stream()
 				.filter(vino->vino.region().equals(region))
 				.anyMatch(vino->vino.uva().equals(uva));
+		//.anyMatch(vino->vino.uva().equals(uva) && vino->vino.region().equals(region));
 				
 			}
 	public Set<String> calcularUvasDeRegion(String region){
 		return vinos.stream()
-				.filter(vino->vino.region().equals(region))
-				.map(Vino::uva)
-				.collect(Collectors.toSet());
-		//.collect(Collectors.mapping(Vino::uva,Collectors.toSet()));
+				.filter(vino->vino.region().equals(region)) //Stream<vino>
+				.map(Vino::uva)//Stream<String>
+				.collect(Collectors.toSet());//Stream<String>->set<vino>
+		//.collect(Collectors.mapping(Vino::uva,Collectors.toSet())); --> 2º forma
 	}
 		
 	public Vino  obtenerVinoMejorPuntuado(String region) {
-		return vinos.stream()
-				.max(Comparator.comparing(Vino::puntos))
+		return vinos.stream() //Stream<Vino>
+				.max(Comparator.comparing(Vino::puntos)) //Optional
 				.get();
 		
 	  }
@@ -143,9 +146,31 @@ public class Vinos {
 			
 	}
 	
+	public Map<String,List<Vino>> agruparVinosPorPais(){
+		return vinos.stream()
+				.collect(Collectors.groupingBy(Vino::pais));
 		
+	}
+	
+	public Map<String,Set<String>> agruparUvasPorPais(){
+		return vinos.stream()
+				.collect(Collectors.groupingBy(Vino::pais,
+						Collectors.mapping(Vino::uva,Collectors.toSet())));
+	}
+		
+	public Map<String, Long> calcularCalidadPrecioPorRegionMayorDe(Double umbral) {
+		return vinos.stream()
+				.filter(vino->vino.getCalidadPrecio()>umbral)
+				.collect(Collectors.groupingBy(Vino::region,Collectors.counting()));
+		//.collect(Collectors.groupingBy(Vino::region,
+		//Collectors.collectingAndThen(Collectors.counting(),v->v.IntValue())
+	
+		
+	}
+	
+}
 	
 		
 	
 
-}
+
