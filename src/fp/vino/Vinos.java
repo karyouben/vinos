@@ -164,9 +164,11 @@ public class Vinos {
 				.collect(Collectors.groupingBy(Vino::region,Collectors.counting()));
 		//.collect(Collectors.groupingBy(Vino::region,
 		//Collectors.collectingAndThen(Collectors.counting(),v->v.IntValue())
+		
 	
 		
 	}
+
 	
 }
 	
