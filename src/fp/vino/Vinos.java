@@ -69,9 +69,16 @@ public class Vinos {
 
 	@Override
 	public String toString() {
-		return String.format("Num. vinos: %d\n", vinos.size());
+	//	return String.format("Num. vinos: %d\n", vinos.size());
 //		String.format("Num. vinos: %d\n", obtenerNumeroVinos());
 //		return obtenerNumeroVinos().toString();
+		return vinos.stream()
+		    .map(Vino::toString)
+		    .collect(Collectors.joining("\n"));
+	}
+	
+	public Stream<Vino> stream(){
+		return vinos.stream();
 	}
 	
 	public Boolean contieneVino(Vino vino) {

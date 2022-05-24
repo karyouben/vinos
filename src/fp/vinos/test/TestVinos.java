@@ -110,6 +110,12 @@ public class TestVinos {
 		System.out.println("=====================================================");
 		testObtenerNVinosRegionOrdenadosPrecio(vinos1,"California", 3);
 		testObtenerNVinosRegionOrdenadosPrecio(vinos2,"California", 10);
+		
+		vinos2.stream()
+		        .limit(1000)
+				.forEach(System.out::println);;
+		     
+
 		//
 //		System.out.println("\nCasos de prueba para agrupaVinosPorPais");
 //		System.out.println("=========================================");
@@ -125,6 +131,7 @@ public class TestVinos {
 //		testCalcularCalidadPrecioPorRegionMayorDe(vinos1, 1.2);
 //		testCalcularCalidadPrecioPorRegionMayorDe(vinos2, 1.2);
 	}
+
 
 
 
